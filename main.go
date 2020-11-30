@@ -4,42 +4,41 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
-	"net/http"
 	"log"
+	"net/http"
+
 	"github.com/labstack/echo"
 )
 
 type LineMessage struct {
-	Destination string 		`json:"destination"`
+	Destination string `json:"destination"`
 	Events      []struct {
-		ReplyToken string 	`json:"replyToken"`
-		Type       string	`json:"type"`
-		Timestamp  int64  	`json:"timestamp"`
+		ReplyToken string `json:"replyToken"`
+		Type       string `json:"type"`
+		Timestamp  int64  `json:"timestamp"`
 		Source     struct {
-			Type   string 	`json:"type"`
-			UserID string 	`json:"userId"`
-		}`json:"source"`
+			Type   string `json:"type"`
+			UserID string `json:"userId"`
+		} `json:"source"`
 		Message struct {
-			ID   string 	`json:"id"`
-			Type string 	`json:"type"`
-			Text string 	`json:"text"`
+			ID   string `json:"id"`
+			Type string `json:"type"`
+			Text string `json:"text"`
 		} `json:"message"`
 	} `json:"events"`
 }
 
-
 type ReplyMessage struct {
-	ReplyToken 	string `json:"replyToken"`
-	Messages   	[]Text `json:"messages"`
+	ReplyToken string `json:"replyToken"`
+	Messages   []Text `json:"messages"`
 }
 
 type Text struct {
-	Type 		string `json:"type"`
-	Text 		string `json:"text"`
-} 
+	Type string `json:"type"`
+	Text string `json:"text"`
+}
 
 var ChannelToken = "rTZm6gy0iaAN1TNt59DGLnu7C3kp20wZ2ZpA9IJLA9M+p9R9h9hR2kUnBznhrZlKox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ1Fl+oz8hNl02z1F7EU/IBJYVnoTWiWObWB77fYuCPGIgdB04t89/1O/w1cDnyilFU=v"
-
 
 func main() {
 	e := echo.New()
@@ -47,7 +46,7 @@ func main() {
 		return c.String(http.StatusOK, "ok")
 	})
 	e.POST("/webhook", func(c echo.Context) error {
-		
+
 		Line := new(LineMessage)
 		if err := c.Bind(Line); err != nil {
 			log.Println("err")
@@ -55,27 +54,26 @@ func main() {
 		}
 
 		text := Text{
-			Type : "text",
-			Text : "ข้อความเข้ามา : " + Line.Events[0].Message.Text  + " ยินดีต้อนรับ : ",
+			Type: "text",
+			Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับ : ",
 		}
-		
+
 		message := ReplyMessage{
-			ReplyToken : Line.Events[0].ReplyToken ,
-			Messages : []Text{
+			ReplyToken: Line.Events[0].ReplyToken,
+			Messages: []Text{
 				text,
 			},
 		}
-		
+
 		replyMessageLine(message)
-		
+
 		log.Println("%% message success")
 		return c.String(http.StatusOK, "ok")
-		
+
 	})
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
-
 
 func replyMessageLine(Message ReplyMessage) error {
 	value, _ := json.Marshal(Message)
