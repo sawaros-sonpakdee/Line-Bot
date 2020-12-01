@@ -1,1 +1,1 @@
-web:./bin/test1
+web: /bin/test1
