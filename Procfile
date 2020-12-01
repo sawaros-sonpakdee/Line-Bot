@@ -1,1 +1,1 @@
-web: go-api
+web: bin/go-getting-started
