@@ -37,7 +37,7 @@ type Text struct {
 	Text string `json:"text"`
 }
 
-var ChannelToken = "rTZm6gy0iaAN1TNt59DGLnu7C3kp20wZ2ZpA9IJLA9M+p9R9h9hR2kUnBznhrZlKox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ1Fl+oz8hNl02z1F7EU/IBJYVnoTWiWObWB77fYuCPGIgdB04t89/1O/w1cDnyilFU=v"
+var ChannelToken = "rTZm6gy0iaAN1TNt59DGLnu7C3kp20wZ2ZpA9IJLA9M+p9R9h9hR2kUnBznhrZlKox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ1Fl+oz8hNl02z1F7EU/IBJYVnoTWiWObWB77fYuCPGIgdB04t89/1O/w1cDnyilFU="
 
 func main() {
 	e := echo.New()
