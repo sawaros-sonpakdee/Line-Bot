@@ -16,4 +16,4 @@ go: found github.com/labstack/gommon/color in github.com/labstack/gommon v0.3.0
 go: found github.com/labstack/gommon/log in github.com/labstack/gommon v0.3.0
 go: found golang.org/x/crypto/acme/autocert in golang.org/x/crypto v0.0.0-20201124201722-c8d3bf9c5392
 go: found github.com/stretchr/testify/assert in github.com/stretchr/testify v1.6.1
-PS C:\Go\src\github.com\testbot559> herogu  login
+PS C:\Go\src\github.com\testbot559> herogu  login 123
