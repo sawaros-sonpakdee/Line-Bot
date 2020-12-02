@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-
 	"github.com/labstack/echo"
 )
 type LineMessage struct {
@@ -40,7 +39,7 @@ type Text struct {
 	Text 		string `json:"text"`
 } 
 
-var ChannelToken = "rTZm6gy0iaAN1TNt59DGLnu7C3kp20wZ2ZpA9IJLA9M+p9R9h9hR2kUnBznhrZlKox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ1Fl+oz8hNl02z1F7EU/IBJYVnoTWiWObWB77fYuCPGIgdB04t89/1O/w1cDnyilFU=v"
+var ChannelToken = "enqfYXimJueU/1f31SxNNix2sahWHKk1dtodGAKRMls7aoYYhmf7ayXfgsV+Zoj4ox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ1zv+T8zswsq2tca8y6f1XWy4ftGExuJvnMcnHRb6BXEQdB04t89/1O/w1cDnyilFU="
 
 
 func main() {
