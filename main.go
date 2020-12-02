@@ -39,7 +39,7 @@ type Text struct {
 	Text 		string `json:"text"`
 } 
 
-var ChannelToken = "enqfYXimJueU/1f31SxNNix2sahWHKk1dtodGAKRMls7aoYYhmf7ayXfgsV+Zoj4ox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ1zv+T8zswsq2tca8y6f1XWy4ftGExuJvnMcnHRb6BXEQdB04t89/1O/w1cDnyilFU="
+var ChannelToken = "cjH2DqkZ3GJnIhdaJ1yviiUMLyd5oaslIVuoz8CwZumNDUStw+zzXKpClradFc7eox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ0HGUrY3bBhmFKhNBG4FcMM4fIqAzCQTZ+xgcBklhka6wdB04t89/1O/w1cDnyilFU="
 
 
 func main() {
