@@ -3,81 +3,124 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
+	// "os"
+
 	"github.com/labstack/echo"
 )
+
 type LineMessage struct {
-	Destination string 		`json:"destination"`
+	Destination string `json:"destination"`
 	Events      []struct {
-		ReplyToken string 	`json:"replyToken"`
-		Type       string	`json:"type"`
-		Timestamp  int64  	`json:"timestamp"`
+		ReplyToken string `json:"replyToken"`
+		Type       string `json:"type"`
+		Timestamp  int64  `json:"timestamp"`
 		Source     struct {
-			Type   string 	`json:"type"`
-			UserID string 	`json:"userId"`
-		}`json:"source"`
+			Type   string `json:"type"`
+			UserID string `json:"userId"`
+		} `json:"source"`
 		Message struct {
-			ID   string 	`json:"id"`
-			Type string 	`json:"type"`
-			Text string 	`json:"text"`
+			ID   string `json:"id"`
+			Type string `json:"type"`
+			Text string `json:"text"`
 		} `json:"message"`
 	} `json:"events"`
 }
 
-
 type ReplyMessage struct {
-	ReplyToken 	string `json:"replyToken"`
-	Messages   	[]Text `json:"messages"`
+	ReplyToken string `json:"replyToken"`
+	Messages   []Text `json:"messages"`
 }
 
 type Text struct {
-	Type 		string `json:"type"`
-	Text 		string `json:"text"`
-} 
+	Type string `json:"type"`
+	Text string `json:"text"`
+}
 
 var ChannelToken = "cjH2DqkZ3GJnIhdaJ1yviiUMLyd5oaslIVuoz8CwZumNDUStw+zzXKpClradFc7eox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ0HGUrY3bBhmFKhNBG4FcMM4fIqAzCQTZ+xgcBklhka6wdB04t89/1O/w1cDnyilFU="
 
-
 func main() {
-	appPort := os.Getenv("PORT")
+	// appPort := os.Getenv("PORT")
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "ok")
 	})
 	e.POST("/webhook", func(c echo.Context) error {
-		
+
 		Line := new(LineMessage)
+
 		if err := c.Bind(Line); err != nil {
 			log.Println("err")
 			return c.String(http.StatusOK, "error")
 		}
 
-		text := Text{
-			Type : "text",
-			Text : "ข้อความเข้ามา : " + Line.Events[0].Message.Text  + " ยินดีต้อนรับ : ",
-		}
+		// var text Text
+		var test  string = Line.Events[0].Message.Text 
+
+	if test == "Hi"{
 		
+		text :=Text{
+				Type: "text",
+				Text: "Hi",
+		}
+		log.Println(text)
 		message := ReplyMessage{
-			ReplyToken : Line.Events[0].ReplyToken ,
-			Messages : []Text{
+			ReplyToken: Line.Events[0].ReplyToken,
+			Messages:[]Text{
 				text,
 			},
 		}
-		
+
+		log.Println(text)
+
 		replyMessageLine(message)
-		
 		log.Println("%% message success")
 		return c.String(http.StatusOK, "ok")
-		
+
+	}else {
+		text := Text{
+			Type: "text",
+			Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับ : ",
+		}
+		log.Println(text)
+		message := ReplyMessage{
+			ReplyToken: Line.Events[0].ReplyToken,
+			Messages:[]Text{
+				text,
+			},
+		}
+
+		log.Println(text)
+
+		replyMessageLine(message)
+		log.Println("%% message success")
+		return c.String(http.StatusOK, "ok")
+
+	}
+
+
+		// message := ReplyMessage{
+		// 	ReplyToken: Line.Events[0].ReplyToken,
+		// 	Messages:[]Text{
+		// 		text,
+		// 	},
+		// }
+
+		// log.Println(text)
+
+		// replyMessageLine(message)
+		// log.Println("%% message success")
+		// return c.String(http.StatusOK, "ok")
+
 	})
 
-	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
-}
+	// e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
 
+	e.Logger.Fatal(e.Start(":8080"))
+}
 
 func replyMessageLine(Message ReplyMessage) error {
 	value, _ := json.Marshal(Message)
