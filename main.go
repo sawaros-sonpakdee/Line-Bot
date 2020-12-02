@@ -3,9 +3,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
-	"net/http"
 	"log"
+	"net/http"
+	"os"
+
 	"github.com/labstack/echo"
 )
 type LineMessage struct {
@@ -41,6 +44,7 @@ var ChannelToken = "rTZm6gy0iaAN1TNt59DGLnu7C3kp20wZ2ZpA9IJLA9M+p9R9h9hR2kUnBznh
 
 
 func main() {
+	appPort := os.Getenv("PORT")
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "ok")
@@ -72,7 +76,7 @@ func main() {
 		
 	})
 
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
 }
 
 
