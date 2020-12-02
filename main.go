@@ -57,16 +57,25 @@ func main() {
 			return c.String(http.StatusOK, "error")
 		}
 
-		// var text Text
+		var text Text
 		var test  string = Line.Events[0].Message.Text 
 
-	if test == "Hi"{
-		
-		text :=Text{
+		if test == "Hi"{
+			
+			text = Text{
+					Type: "text",
+					Text: "Hi",
+			}
+			log.Println(text)
+		}else {
+			text = Text{
 				Type: "text",
-				Text: "Hi",
+				Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับ : ",
+			}
+			log.Println(text)
 		}
-		log.Println(text)
+
+
 		message := ReplyMessage{
 			ReplyToken: Line.Events[0].ReplyToken,
 			Messages:[]Text{
@@ -80,42 +89,7 @@ func main() {
 		log.Println("%% message success")
 		return c.String(http.StatusOK, "ok")
 
-	}else {
-		text := Text{
-			Type: "text",
-			Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับ : ",
-		}
-		log.Println(text)
-		message := ReplyMessage{
-			ReplyToken: Line.Events[0].ReplyToken,
-			Messages:[]Text{
-				text,
-			},
-		}
-
-		log.Println(text)
-
-		replyMessageLine(message)
-		log.Println("%% message success")
-		return c.String(http.StatusOK, "ok")
-
-	}
-
-
-		// message := ReplyMessage{
-		// 	ReplyToken: Line.Events[0].ReplyToken,
-		// 	Messages:[]Text{
-		// 		text,
-		// 	},
-		// }
-
-		// log.Println(text)
-
-		// replyMessageLine(message)
-		// log.Println("%% message success")
-		// return c.String(http.StatusOK, "ok")
-
-	})
+		})
 
 	// e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
 
