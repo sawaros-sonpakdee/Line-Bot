@@ -58,16 +58,16 @@ func main() {
 		}
 
 		var text Text
-		var test  string = Line.Events[0].Message.Text 
+		var test string = Line.Events[0].Message.Text
 
-		if test == "Hi"{
-			
+		if test == "Hi" {
+
 			text = Text{
-					Type: "text",
-					Text: "Hi",
+				Type: "text",
+				Text: "Hi",
 			}
 			log.Println(text)
-		}else {
+		} else {
 			text = Text{
 				Type: "text",
 				Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับ : ",
@@ -75,10 +75,9 @@ func main() {
 			log.Println(text)
 		}
 
-
 		message := ReplyMessage{
 			ReplyToken: Line.Events[0].ReplyToken,
-			Messages:[]Text{
+			Messages: []Text{
 				text,
 			},
 		}
@@ -89,7 +88,7 @@ func main() {
 		log.Println("%% message success")
 		return c.String(http.StatusOK, "ok")
 
-		})
+	})
 
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
 
@@ -120,5 +119,5 @@ func replyMessageLine(Message ReplyMessage) error {
 
 	return err
 	//test
-	
+
 }
