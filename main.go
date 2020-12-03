@@ -40,7 +40,7 @@ type Text struct {
 	Text string `json:"text"`
 }
 
-var ChannelToken = "JRJb8jASxqUjw/oxUeKHCK0Hvf+7PhK9N6G0mfcvFop9UGosTqjTMhX/69jc8WT7+A6jbYx7DPrC66/BB5Ue/JKVzRwukjuAA0v+XirzOtzM/jaM0lHUrCW+9eLj8eGA0SqhmyDnaLTimU5M6elJrwdB04t89/1O/w1cDnyilFU="
+var ChannelToken = "l96rN/xy/3oDAZazD3E0xfv6VkJBjJugL9UEmIosZ24e1BhpCEwyLVX0R/O1QEsR+A6jbYx7DPrC66/BB5Ue/JKVzRwukjuAA0v+XirzOtwViD7CMIktROrk8Pa/2oVkjtabU3J5uyWJZUh3NSZ54gdB04t89/1O/w1cDnyilFU="
 
 func main() {
 	appPort := os.Getenv("PORT")
