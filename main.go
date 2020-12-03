@@ -152,7 +152,7 @@ func getProfile(userId string) string {
 		
 	}
 
-	log.Println("profile.DisplayName" + profile.DisplayName)
+	log.Println(profile.DisplayName)
 	return profile.DisplayName
 
 }
