@@ -70,17 +70,17 @@ func main() {
 		var text Text
 		var test  string = Line.Events[0].Message.Text 
 
-		if test == "Hi"{
+		if test == "Hi" {
 			
 			text = Text{
 					Type: "text",
-					Text: "Hi",
+					Text: "ยินดีต้อนรับคุณ " + fullname,
 			}
 			log.Println(text)
 		}else {
 			text = Text{
 				Type: "text",
-				Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับคุณ : " + fullname,
+				Text: "คุณพูดว่า " + Line.Events[0].Message.Text,
 			}
 			log.Println(text)
 		}
