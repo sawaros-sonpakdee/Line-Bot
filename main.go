@@ -3,11 +3,11 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	// "fmt"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	// "os"
+	"os"
 
 	"github.com/labstack/echo"
 )
@@ -40,7 +40,7 @@ type Text struct {
 	Text string `json:"text"`
 }
 
-var ChannelToken = "cjH2DqkZ3GJnIhdaJ1yviiUMLyd5oaslIVuoz8CwZumNDUStw+zzXKpClradFc7eox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ0HGUrY3bBhmFKhNBG4FcMM4fIqAzCQTZ+xgcBklhka6wdB04t89/1O/w1cDnyilFU="
+var ChannelToken = "l96rN/xy/3oDAZazD3E0xfv6VkJBjJugL9UEmIosZ24e1BhpCEwyLVX0R/O1QEsR+A6jbYx7DPrC66/BB5Ue/JKVzRwukjuAA0v+XirzOtwViD7CMIktROrk8Pa/2oVkjtabU3J5uyWJZUh3NSZ54gdB04t89/1O/w1cDnyilFU="
 
 func main() {
 	appPort := os.Getenv("PORT")
@@ -58,16 +58,16 @@ func main() {
 		}
 
 		var text Text
-		var test  string = Line.Events[0].Message.Text 
+		var test string = Line.Events[0].Message.Text
 
-		if test == "Hi"{
-			
+		if test == "Hi" {
+
 			text = Text{
-					Type: "text",
-					Text: "Hi",
+				Type: "text",
+				Text: "Hi",
 			}
 			log.Println(text)
-		}else {
+		} else {
 			text = Text{
 				Type: "text",
 				Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับ : ",
@@ -75,10 +75,9 @@ func main() {
 			log.Println(text)
 		}
 
-
 		message := ReplyMessage{
 			ReplyToken: Line.Events[0].ReplyToken,
-			Messages:[]Text{
+			Messages: []Text{
 				text,
 			},
 		}
@@ -89,7 +88,7 @@ func main() {
 		log.Println("%% message success")
 		return c.String(http.StatusOK, "ok")
 
-		})
+	})
 
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
 
@@ -119,5 +118,6 @@ func replyMessageLine(Message ReplyMessage) error {
 	log.Println("response Body:", string(body))
 
 	return err
-	
+	//test
+
 }
