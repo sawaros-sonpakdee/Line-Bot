@@ -3,11 +3,11 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	// "fmt"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	// "os"
+	"os"
 
 	"github.com/labstack/echo"
 )
@@ -40,10 +40,10 @@ type Text struct {
 	Text string `json:"text"`
 }
 
-var ChannelToken = "cjH2DqkZ3GJnIhdaJ1yviiUMLyd5oaslIVuoz8CwZumNDUStw+zzXKpClradFc7eox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ0HGUrY3bBhmFKhNBG4FcMM4fIqAzCQTZ+xgcBklhka6wdB04t89/1O/w1cDnyilFU="
+var ChannelToken = "faUBQIQgirLHVpLqwpwjE/X7xjdbbcqFVq9LovaG5YVfOC3DHLKTulh4z3khS9R0+A6jbYx7DPrC66/BB5Ue/JKVzRwukjuAA0v+XirzOtz9Uu8EziJSMdj90Esf0hYER0DE4bDDA6Al02GaA6OIdQdB04t89/1O/w1cDnyilFU="
 
 func main() {
-	// appPort := os.Getenv("PORT")
+	appPort := os.Getenv("PORT")
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "ok")
@@ -91,9 +91,9 @@ func main() {
 
 		})
 
-	// e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
 
-	e.Logger.Fatal(e.Start(":8080"))
+	// e.Logger.Fatal(e.Start(":8080"))
 }
 
 func replyMessageLine(Message ReplyMessage) error {
