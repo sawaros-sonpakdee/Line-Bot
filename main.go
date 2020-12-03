@@ -51,6 +51,7 @@ var ChannelToken = "l96rN/xy/3oDAZazD3E0xfv6VkJBjJugL9UEmIosZ24e1BhpCEwyLVX0R/O1
 
 func main() {
 	appPort := os.Getenv("PORT")
+
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "ok")
@@ -151,7 +152,7 @@ func getProfile(userId string) string {
 		
 	}
 
-	log.Println(profile.DisplayName)
+	log.Println("profile.DisplayName" + profile.DisplayName)
 	return profile.DisplayName
 
 }
