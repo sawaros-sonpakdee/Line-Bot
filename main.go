@@ -40,6 +40,13 @@ type Text struct {
 	Text string `json:"text"`
 }
 
+type Profile struct {
+	UserID        string `json:"userId"`
+	DisplayName   string `่json:"displayName"`
+	PictureURL    string `่json:"pictureUrl"`
+	StatusMessage string `json:"statusMessage"`
+}
+
 var ChannelToken = "cjH2DqkZ3GJnIhdaJ1yviiUMLyd5oaslIVuoz8CwZumNDUStw+zzXKpClradFc7eox/zT7imst2SNOQ0krDWq58XnSd0vrAf1QHCYfS0KJ0HGUrY3bBhmFKhNBG4FcMM4fIqAzCQTZ+xgcBklhka6wdB04t89/1O/w1cDnyilFU="
 
 func main() {
@@ -57,6 +64,9 @@ func main() {
 			return c.String(http.StatusOK, "error")
 		}
 
+		fullname := getProfile(Line.Events[0].Source.UserID)
+
+
 		var text Text
 		var test  string = Line.Events[0].Message.Text 
 
@@ -70,7 +80,7 @@ func main() {
 		}else {
 			text = Text{
 				Type: "text",
-				Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับ : ",
+				Text: "ข้อความเข้ามา : " + Line.Events[0].Message.Text + " ยินดีต้อนรับคุณ : " + fullname,
 			}
 			log.Println(text)
 		}
@@ -121,3 +131,28 @@ func replyMessageLine(Message ReplyMessage) error {
 	return err
 	
 }
+
+func getProfile(userId string) string {
+
+	url := "https://api.line.me/v2/bot/profile/" + userId
+
+	req, _ := http.NewRequest("GET" , url , nil)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Add("Authorization", "Bearer "+ChannelToken)
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	var profile Profile
+	if  err := json.Unmarshal(body, &profile); err != nil {
+		log.Println("%% err \n")
+		
+	}
+
+	log.Println(profile.DisplayName)
+	return profile.DisplayName
+
+}
+
