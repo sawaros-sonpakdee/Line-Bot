@@ -88,7 +88,7 @@ func main() {
 		}else {
 			text = Text{
 				Type: "text",
-				Text: "คุณพูดว่า " + Line.Events[0].Message.Text,
+				Text: Line.Events[0].Message.Text + "ขอโทษค่ะ ไม่มีคำสั่งนี้ในระบบ กรุณาตรวจสอบคำสั่งที่ถูกต้องอีกครั้งค่ะ",
 			}
 			log.Println(text)
 		}
