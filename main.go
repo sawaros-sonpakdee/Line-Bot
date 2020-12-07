@@ -78,6 +78,13 @@ func main() {
 					Text: "ยินดีต้อนรับคุณ " + fullname,
 			}
 			log.Println(text)
+
+		}else if test == "สวัสดี" {
+			text = Text{
+				Type: "text",
+				Text: "สวัสดีคุณ " + fullname,
+			}
+			log.Println(text)
 		}else {
 			text = Text{
 				Type: "text",
