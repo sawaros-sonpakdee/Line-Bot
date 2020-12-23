@@ -50,8 +50,8 @@ type Profile struct {
 var ChannelToken = "l96rN/xy/3oDAZazD3E0xfv6VkJBjJugL9UEmIosZ24e1BhpCEwyLVX0R/O1QEsR+A6jbYx7DPrC66/BB5Ue/JKVzRwukjuAA0v+XirzOtwViD7CMIktROrk8Pa/2oVkjtabU3J5uyWJZUh3NSZ54gdB04t89/1O/w1cDnyilFU="
 
 func main() {
-	appPort := os.Getenv("PORT")
 
+	appPort := os.Getenv("PORT")
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "ok")
@@ -66,37 +66,38 @@ func main() {
 		}
 
 		fullname := getProfile(Line.Events[0].Source.UserID)
-
+		log.Printf("%+v \n" , Line.Events)
 
 		var text Text
-		var test  string = Line.Events[0].Message.Text 
+		var test string = Line.Events[0].Message.Text
 
 		if test == "Hi" {
-			
+
 			text = Text{
-					Type: "text",
-					Text: "ยินดีต้อนรับคุณ " + fullname,
+				Type: "text",
+				Text: "ยินดีต้อนรับคุณ " + fullname,
 			}
 			log.Println(text)
 
-		}else if test == "สวัสดี" {
+		} else if test == "สวัสดี" {
 			text = Text{
 				Type: "text",
+
+				
 				Text: "สวัสดีคุณ " + fullname,
 			}
 			log.Println(text)
-		}else {
+		} else {
 			text = Text{
 				Type: "text",
-				Text: Line.Events[0].Message.Text + "ขอโทษค่ะ ไม่มีคำสั่งนี้ในระบบ กรุณาตรวจสอบคำสั่งที่ถูกต้องอีกครั้งค่ะ",
+				Text: Line.Events[0].Message.Text + "? ขอโทษค่ะ ไม่มีคำสั่งนี้ในระบบ กรุณาตรวจสอบคำสั่งที่ถูกต้องอีกครั้งค่ะ",
 			}
 			log.Println(text)
 		}
 
-
 		message := ReplyMessage{
 			ReplyToken: Line.Events[0].ReplyToken,
-			Messages:[]Text{
+			Messages: []Text{
 				text,
 			},
 		}
@@ -107,7 +108,7 @@ func main() {
 		log.Println("%% message success")
 		return c.String(http.StatusOK, "ok")
 
-		})
+	})
 
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", appPort)))
 
@@ -137,14 +138,14 @@ func replyMessageLine(Message ReplyMessage) error {
 	log.Println("response Body:", string(body))
 
 	return err
-	
+
 }
 
 func getProfile(userId string) string {
 
 	url := "https://api.line.me/v2/bot/profile/" + userId
 
-	req, _ := http.NewRequest("GET" , url , nil)
+	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Add("Authorization", "Bearer "+ChannelToken)
 
@@ -154,15 +155,12 @@ func getProfile(userId string) string {
 	body, _ := ioutil.ReadAll(res.Body)
 
 	var profile Profile
-	if  err := json.Unmarshal(body, &profile); err != nil {
+	if err := json.Unmarshal(body, &profile); err != nil {
 		log.Println("%% err \n")
-		
+
 	}
 
 	log.Println(profile.DisplayName)
 	return profile.DisplayName
 
 }
-
-//tese
-
