@@ -8,42 +8,48 @@ import (
 	"log"
 	"net/http"
 	"os"
+
 	"github.com/labstack/echo"
 )
 
 type LineMessage struct {
-	Destination string `json:"destination"`
+	Destination string json:"destination"
 	Events      []struct {
-		ReplyToken string `json:"replyToken"`
-		Type       string `json:"type"`
-		Timestamp  int64  `json:"timestamp"`
+		ReplyToken string json:"replyToken"
+		Type       string json:"type"
+		Timestamp  int64  json:"timestamp"
 		Source     struct {
-			Type   string `json:"type"`
-			UserID string `json:"userId"`
-		} `json:"source"`
+			Type   string json:"type"
+			UserID string json:"userId"
+		} json:"source"
 		Message struct {
-			ID   string `json:"id"`
-			Type string `json:"type"`
-			Text string `json:"text"`
-		} `json:"message"`
-	} `json:"events"`
+			ID   string json:"id"
+			Type string json:"type"
+			Text string json:"text"
+		} json:"message"
+		Follow struct{
+			Type   string json:"type"
+			UserID string json:"userId"
+			Text string json:"text"
+		} json:"follow"
+	} json:"events"
 }
 
 type ReplyMessage struct {
-	ReplyToken string `json:"replyToken"`
-	Messages   []Text `json:"messages"`
+	ReplyToken string json:"replyToken"
+	Messages   []Text json:"messages"
 }
 
 type Text struct {
-	Type string `json:"type"`
-	Text string `json:"text"`
+	Type string json:"type"
+	Text string json:"text"
 }
 
 type Profile struct {
-	UserID        string `json:"userId"`
-	DisplayName   string `่json:"displayName"`
-	PictureURL    string `่json:"pictureUrl"`
-	StatusMessage string `json:"statusMessage"`
+	UserID        string json:"userId"
+	DisplayName   string ่json:"displayName"
+	PictureURL    string ่json:"pictureUrl"
+	StatusMessage string json:"statusMessage"
 }
 
 var ChannelToken = "l96rN/xy/3oDAZazD3E0xfv6VkJBjJugL9UEmIosZ24e1BhpCEwyLVX0R/O1QEsR+A6jbYx7DPrC66/BB5Ue/JKVzRwukjuAA0v+XirzOtwViD7CMIktROrk8Pa/2oVkjtabU3J5uyWJZUh3NSZ54gdB04t89/1O/w1cDnyilFU="
@@ -65,12 +71,24 @@ func main() {
 		}
 
 		fullname := getProfile(Line.Events[0].Source.UserID)
+
+
 		log.Printf("%+v \n" , Line.Events)
 
 		var text Text
+		//var follow Follow
+		
 		var test string = Line.Events[0].Message.Text
+		// var test2 string = Line.Events[0].Follow.UserID
+		// if test2 ==""{
+		// 	text = Text{
+		// 		Type: "text",
+		// 		Text: "ยินดีต้อนสู่ Waylar",
+		// 	}
+		// 	log.Println(text)
 
-		if test == "Hi" {
+		// }else 
+		if test == "Hi"  {
 
 			text = Text{
 				Type: "text",
@@ -81,17 +99,22 @@ func main() {
 		} else if test == "สวัสดี" {
 			text = Text{
 				Type: "text",
-
-				
 				Text: "สวัสดีคุณ " + fullname,
 			}
 			log.Println(text)
-		} else {
+		}else if test ==""{
 			text = Text{
 				Type: "text",
-				Text: Line.Events[0].Message.Text + "? ขอโทษค่ะ ไม่มีคำสั่งนี้ในระบบ กรุณาตรวจสอบคำสั่งที่ถูกต้องอีกครั้งค่ะ",
+				Text:  Line.Events[0].Follow.Text +"ยินดีต้อนรับสู่ waylar",
 			}
 			log.Println(text)
+		}else{
+			text = Text{
+				Type: "text",
+				Text: Line.Events[0].Message.Text + " ไม่สามารถให้บริการ",
+			}
+			log.Println(text)
+
 		}
 
 		message := ReplyMessage{
