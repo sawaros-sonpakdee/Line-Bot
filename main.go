@@ -51,7 +51,7 @@ type Profile struct {
 	StatusMessage string `json:"statusMessage"`
 }
 
-var ChannelToken = "l96rN/xy/3oDAZazD3E0xfv6VkJBjJugL9UEmIosZ24e1BhpCEwyLVX0R/O1QEsR+A6jbYx7DPrC66/BB5Ue/JKVzRwukjuAA0v+XirzOtwViD7CMIktROrk8Pa/2oVkjtabU3J5uyWJZUh3NSZ54gdB04t89/1O/w1cDnyilFU="
+var ChannelToken = "0dzJnO68pd/AJNjLLmBq604zqe2F5s5/8wotLdqnLHbpme05m137EYkN5ym4rW/CE57DcgWKvD1yitcZStaJ/kduREAMVcyidZeHd/OioD4B4q1XfjiLj89qKPfl5jhKS2RYNEHflj3f35aZj6ol7wdB04t89/1O/w1cDnyilFU="
 
 func main() {
 
